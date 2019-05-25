@@ -1,0 +1,20 @@
+language: node_js
+node_js: "stable"
+install:
+  - npm install
+script:
+  - npm test
+env:
+  - NODE_ENV=test
+cache:
+  directories:
+    - "node_modules"
+services:
+  - postgresql
+before_script:
+  - createuser emmabaye -s -U postgres
+  - createdb pms_db --username=emmabaye 
+  - sequelize db:migrate
+  - sequelize db:seed:all
+after_success:
+  - npm run coverage

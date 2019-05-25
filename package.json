@@ -1,0 +1,70 @@
+{
+  "name": "pms",
+  "version": "1.0.0",
+  "description": "Contains a list of locations and the total number of residents in each location broken down by gender. ",
+  "main": "./server/server.js",
+  "scripts": {
+    "start": "node ./build/server.js",
+    "build-server": " node ./node_modules/babel-cli/bin/babel.js -d ./build ./server",
+    "heroku-postbuild": "npm run populate-db && npm run build-server",
+    "populate-db": "npm run unmigrate && npm run migrate",
+    "migrate": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate && npm run seed",
+    "unmigrate": "node ./node_modules/sequelize-cli/lib/sequelize db:migrate:undo:all",
+    "seed": "node ./node_modules/sequelize-cli/lib/sequelize db:seed:all",
+    "start-dev": "nodemon --exec node ./node_modules/babel-cli/bin/babel-node.js ./server/server.js",
+    "test": "nyc mocha --require babel-core/register --require babel-polyfill ./server/* --timeout 60000 --exit",
+    "coverage": "nyc report --reporter=lcov --reporter=text-lcov | coveralls",
+    "lint": "eslint server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmabaye/sms-management-api.git"
+  },
+  "author": "Emmanuel Abaye",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emmabaye/sms-management-api/issues"
+  },
+  "homepage": "https://github.com/emmabaye/sms-management-api#readme",
+  "devDependencies": {
+    "babel-polyfill": "^6.26.0",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-chai-friendly": "^0.4.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
+    "mocha": "^6.1.4",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.2.1",
+    "should": "^13.2.3"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "helmet": "^3.18.0",
+    "pg": "^7.4.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "4.22.8",
+    "sequelize-cli": "3.1.0",
+    "supertest": "^3.1.0",
+    "validator": "^9.1.1"
+  },
+
+  "nyc": {
+    "exclude": ["*/migrations","*/seeders"]
+  }
+}
