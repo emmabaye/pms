@@ -1,0 +1,6 @@
+/node_modules
+/build
+/dist
+/template/js
+/public/js
+/server/models/index.js
