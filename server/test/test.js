@@ -20,6 +20,7 @@ describe("Population Management System", () => {
       .expect(200)
       .end((err, res) => {
         res.status.should.equal(200);
+        (res.body.title).should.equal('Welcome to my Population Management System');
         done();
       });
   });
@@ -42,6 +43,8 @@ describe("Population Management System", () => {
         .expect(200)
         .end((err, res) => {
           res.status.should.equal(200);
+          (res.body.status).should.equal('Success');
+          (res.body.data.name).should.equal(locationDetails[0].name);
           locationId = res.body.data.id;
           done();
         });
@@ -53,6 +56,8 @@ describe("Population Management System", () => {
         .send({ ...locationDetails[0], name: undefined })
         .expect(400)
         .end((err, res) => {
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Name of location is required');
           res.status.should.equal(400);
           done();
         });
@@ -65,6 +70,8 @@ describe("Population Management System", () => {
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Valid male population is required');
           done();
         });
     });
@@ -76,6 +83,8 @@ describe("Population Management System", () => {
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Valid female population is required');
           done();
         });
     });
@@ -87,6 +96,8 @@ describe("Population Management System", () => {
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Valid parent location id is required.');
           done();
         });
     });
@@ -99,6 +110,8 @@ describe("Population Management System", () => {
         .expect(409)
         .end((err, res) => {
           res.status.should.equal(409);
+          (res.body.status).should.equal('Fail');
+          (res.body.message).should.equal('Location already exists');
           done();
         });
     });
@@ -110,6 +123,8 @@ describe("Population Management System", () => {
         .expect(404)
         .end((err, res) => {
           res.status.should.equal(404);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Parent location not found');
           done();
         });
     });
@@ -122,6 +137,8 @@ describe("Population Management System", () => {
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Location populations should not be greater than that of parent location');
           done();
         });
     });
@@ -137,6 +154,9 @@ describe("Population Management System", () => {
         .expect(200)
         .end((err, res) => {
           res.status.should.equal(200);
+          (res.body.status).should.equal('Success');
+          (res.body.message).should.equal('Location created');
+          (res.body.data.name).should.equal('Maryland');
           locationId = res.body.data.id;
           done();
         });
@@ -151,6 +171,7 @@ describe("Population Management System", () => {
         .expect(200)
         .end((err, res) => {
           res.status.should.equal(200);
+          (res.body.status).should.equal('Success');
           done();
         });
     });
@@ -162,6 +183,8 @@ describe("Population Management System", () => {
         .expect(404)
         .end((err, res) => {
           res.status.should.equal(404);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Location not found');
           done();
         });
     });
@@ -172,6 +195,8 @@ describe("Population Management System", () => {
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Invalid name of location');
           done();
         });
     });
@@ -183,6 +208,8 @@ describe("Population Management System", () => {
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Valid male population is required');
           done();
         });
     });
@@ -194,6 +221,8 @@ describe("Population Management System", () => {
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Valid female population is required');
           done();
         });
     });
@@ -205,6 +234,8 @@ describe("Population Management System", () => {
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Location populations should not be greater than that of parent location');
           done();
         });
     });
@@ -216,6 +247,8 @@ describe("Population Management System", () => {
         .expect(400)
         .end((err, res) => {
           res.status.should.equal(400);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Valid parent location id is required');
           done();
         });
     });
@@ -228,6 +261,9 @@ describe("Population Management System", () => {
         .expect(200)
         .end((err, res) => {
           res.status.should.equal(200);
+          (res.body.status).should.equal('Success');
+          (res.body.message).should.equal('All Locations retrieved');
+          (Array.isArray(res.body.data)).should.equal(true);
           done();
         });
     }));
@@ -240,6 +276,8 @@ describe("Population Management System", () => {
         .expect(200)
         .end((err, res) => {
           res.status.should.equal(200);
+          (res.body.status).should.equal('Success');
+          (res.body.message).should.equal('Location found');
           done();
         });
     }));
@@ -250,6 +288,8 @@ describe("Population Management System", () => {
         .expect(404)
         .end((err, res) => {
           res.status.should.equal(404);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Location does not exist');
           done();
         });
     }));
@@ -262,6 +302,8 @@ describe("Population Management System", () => {
         .expect(200)
         .end((err, res) => {
           res.status.should.equal(200);
+          (res.body.status).should.equal('Success');
+          (res.body.message).should.equal('Location deleted successfully');
           done();
         });
     }));
@@ -272,6 +314,8 @@ describe("Population Management System", () => {
         .expect(404)
         .end((err, res) => {
           res.status.should.equal(404);
+          (res.body.status).should.equal('Error');
+          (res.body.message).should.equal('Location does not exist');
           done();
         });
     }));
